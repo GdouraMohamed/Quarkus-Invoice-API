@@ -11,6 +11,8 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
+import java.util.List;
+
 @Path("/api/invoices")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -20,6 +22,22 @@ public class InvoiceResource {
 
     public InvoiceResource(InvoiceRepository repo) {
         this.repo = repo;
+    }
+
+    @GET
+    public List<InvoiceResponse> getAll(
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("size") @DefaultValue("20") int size
+    ) {
+        return repo.findAll()
+                .page(page, size)
+                .list()
+                .stream()
+                .map(invoice -> {
+                    invoice.lines.size(); // force lazy loading
+                    return InvoiceResponse.from(invoice);
+                })
+                .toList();
     }
 
     @POST

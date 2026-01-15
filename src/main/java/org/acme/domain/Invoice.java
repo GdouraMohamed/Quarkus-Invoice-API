@@ -74,4 +74,9 @@ public class Invoice extends PanacheEntityBase {
     void onUpdate() {
         updatedAt = Instant.now();
     }
+
+    public long getTotalCentsDividedBy100() {
+        return totalCents / 100;
+    }
+
 }

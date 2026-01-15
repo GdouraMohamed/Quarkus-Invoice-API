@@ -32,5 +32,16 @@ public class InvoiceLine extends PanacheEntityBase {
     @Min(0)
     @Column(name = "line_total_cents", nullable = false)
     public long lineTotalCents;
+
+
+    public long getUnitPriceCentsDividedBy100() {
+        return unitPriceCents / 100;
+    }
+
+    public long getLineTotalCentsDividedBy100() {
+        return lineTotalCents / 100;
+    }
+
+
 }
 
