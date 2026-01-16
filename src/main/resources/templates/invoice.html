@@ -2,42 +2,54 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Invoice {invoice.id}</title>
+    <title>Invoice</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
 <body class="container mt-4">
 
-<a href="/ui/invoices" class="btn btn-secondary mb-3">← Back</a>
+<a href="/ui/invoices" class="btn btn-secondary mb-3">
+    <i class="fa-solid fa-arrow-left"></i> Back
+</a>
+
+<a href="/ui/invoices/{invoice.id}/edit" class="btn btn-warning mb-3">
+    <i class="fa-solid fa-pen"></i> Edit
+</a>
 
 <h2>Invoice #{invoice.id}</h2>
 
-<ul>
-    <li><b>Customer:</b> {invoice.customerName}</li>
-    <li><b>Email:</b> {invoice.customerEmail}</li>
-    <li><b>Status:</b> {invoice.status}</li>
-    <li><b>Total:</b> {invoice.totalCentsDividedBy100} {invoice.currency}</li>
+<ul class="list-group mb-4">
+    <li class="list-group-item"><b>Customer:</b> {invoice.customerName}</li>
+    <li class="list-group-item"><b>Email:</b> {invoice.customerEmail}</li>
+    <li class="list-group-item"><b>Status:</b> {invoice.status}</li>
+    <li class="list-group-item">
+        <b>Total:</b> {invoice.totalCentsDividedBy100} {invoice.currency}
+    </li>
 </ul>
 
 <h4>Lines</h4>
 
-<table class="table table-sm">
+<table class="table table-bordered">
     <thead>
     <tr>
         <th>Description</th>
         <th>Qty</th>
-        <th>Unit</th>
+        <th>Unit price</th>
         <th>Total</th>
     </tr>
     </thead>
     <tbody>
+
     {#for l in invoice.lines}
-    <tr>
-        <td>{l.description}</td>
-        <td>{l.quantity}</td>
-        <td>{l.unitPriceCents }</td>
-        <td>{l.lineTotalCents }</td>
-    </tr>
+        <tr>
+            <td>{l.description}</td>
+            <td>{l.quantity}</td>
+            <td>{l.unitPriceCentsDividedBy100}</td>
+            <td>{l.lineTotalCentsDividedBy100}</td>
+        </tr>
     {/for}
+
     </tbody>
 </table>
 
