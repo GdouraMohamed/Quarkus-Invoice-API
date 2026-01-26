@@ -1,5 +1,6 @@
 package org.acme.api;
 
+import jakarta.annotation.security.RolesAllowed;
 import org.acme.api.dto.InvoiceResponse;
 import org.acme.domain.Invoice;
 import org.acme.domain.InvoiceLine;
@@ -13,9 +14,9 @@ import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
-
 import java.util.List;
 
+@RolesAllowed("user")
 @Path("/api/invoices")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
